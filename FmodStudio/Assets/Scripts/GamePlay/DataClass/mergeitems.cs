@@ -9,7 +9,7 @@ using UnityEngine;
 namespace ThGold.Table
 {
     [Serializable]
-    public class cat : DefaultDataBase
+    public class mergeitems : DefaultDataBase
     {
         private static DefaultDataBase _inst;
         public static DefaultDataBase Instance
@@ -18,56 +18,44 @@ namespace ThGold.Table
             {
                 if (_inst == null)
                 {
-                    _inst = new cat();
+                    _inst = new mergeitems();
                 }
                 return _inst;
             }
         }
         /// <summary>
-        /// 猫的ID
+        /// ID
         /// </summary>
         [XmlAttribute("ID")]
         public override int ID{ get; set; }
 
         /// <summary>
-        /// 猫的名称
+        /// 合成的ID
         /// </summary>
-        [XmlAttribute("Name")]
-        public String Name;
+        [XmlAttribute("ResultID")]
+        public int ResultID;
 
         /// <summary>
-        /// 猫的年龄
+        /// id1
         /// </summary>
-        [XmlAttribute("age")]
-        public int age;
+        [XmlAttribute("ItemID1")]
+        public int ItemID1;
 
         /// <summary>
-        /// 猫的等级
+        /// id2
         /// </summary>
-        [XmlAttribute("level")]
-        public int level;
+        [XmlAttribute("ItemID2")]
+        public int ItemID2;
 
         /// <summary>
-        /// 猫的攻击
+        /// 列表
         /// </summary>
-        [XmlAttribute("attack")]
-        public int attack;
-
-        /// <summary>
-        /// 猫的爱
-        /// </summary>
-        [XmlAttribute("love")]
-        public float love;
-
-        /// <summary>
-        /// 猫的血量
-        /// </summary>
-        [XmlAttribute("health")]
-        public float health;
+        [XmlAttribute("ItemList")]
+        public List<int> ItemList;
 
         protected override void LoadBytesInfo()
         {
-           string xmlPath = Application.dataPath + "/Resources/XmlData/cat.xml";
+           string xmlPath = Application.dataPath + "/Resources/XmlData/mergeitems.xml";
             XmlDocument xmlDoc = new XmlDocument();
            xmlDoc.Load(xmlPath);
              string xmlText = xmlDoc.InnerXml;
@@ -88,13 +76,11 @@ namespace ThGold.Table
             {
                  if (reader.NodeType != XmlNodeType.Element || !reader.HasAttributes)
                      continue;
-                 cat data = new cat();
+                 mergeitems data = new mergeitems();
                  data.ID= int.Parse(reader.GetAttribute("ID"));
-                 data.age= int.Parse(reader.GetAttribute("age"));
-                 data.level= int.Parse(reader.GetAttribute("level"));
-                 data.attack= int.Parse(reader.GetAttribute("attack"));
-                 data.love= float.Parse(reader.GetAttribute("love"));
-                 data.health= float.Parse(reader.GetAttribute("health"));
+                 data.ResultID= int.Parse(reader.GetAttribute("ResultID"));
+                 data.ItemID1= int.Parse(reader.GetAttribute("ItemID1"));
+                 data.ItemID2= int.Parse(reader.GetAttribute("ItemID2"));
                  lock (datas)
                  {
                      datas.Add(data);

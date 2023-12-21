@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<allmergeitems>
+	<mergeitems ID="1001" ResultID="101" ItemID1="1" ItemID2="2" ItemList="1,2">
+	</mergeitems>
+	<mergeitems ID="1002" ResultID="102" ItemID1="1" ItemID2="3" ItemList="1,3">
+	</mergeitems>
+</allmergeitems>

@@ -11,19 +11,19 @@ using EventHandler = ThGold.Event.EventHandler;
 namespace ThGold.Table
 {
     [Serializable]
-public class dtnodesdata : LoadDataBase
+public class mergeitemsdata : LoadDataBase
 {
-    public Dictionary<int, dtnodes> Datas;
-    public static dtnodesdata Instance;
+    public Dictionary<int, mergeitems> Datas;
+    public static mergeitemsdata Instance;
     public override void Init()
     {
         Instance = this;
-        Datas = new Dictionary<int, dtnodes>();
-        EventHandler.Instance.EventDispatcher.AddEventListener("dtnodes"+CustomEvent.DataTableLoadSucceed,LoadDataComplete,EventDispatcherAddMode.SINGLE_SHOT);
+        Datas = new Dictionary<int, mergeitems>();
+        EventHandler.Instance.EventDispatcher.AddEventListener("mergeitems"+CustomEvent.DataTableLoadSucceed,LoadDataComplete,EventDispatcherAddMode.SINGLE_SHOT);
     }
     public override void InitLoadDataConfig()
     {
-        ConfigList.Add(dtnodes.Instance);
+        ConfigList.Add(mergeitems.Instance);
     }
     public override void LoadDataComplete(IEvent e)
     {
@@ -38,11 +38,11 @@ public class dtnodesdata : LoadDataBase
             {
                 continue;
             }
-            if (ddb is dtnodes)
+            if (ddb is mergeitems)
             {
                 for (int i = 0; i < ls.Count; i++)
                 {
-                    Datas.Add(ls[i].ID, (dtnodes)ls[i]);
+                    Datas.Add(ls[i].ID, (mergeitems)ls[i]);
                     Debug.Log(Datas[ls[i].ID].ID);
                 }
             }

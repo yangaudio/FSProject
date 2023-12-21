@@ -6,11 +6,13 @@ using UnityEngine;
 using System.Xml;
 using System.Xml.Serialization;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using Cysharp.Threading.Tasks;
 using UnityEditor;
 
 public static class ExcelConverter {
-    static string XmlDataPath = Application.dataPath + "/Resources/XmlData"; 
+    static string XmlDataPath = Application.dataPath + "/Resources/XmlData";
     static string xmlfilepath = "/Resources/XmlData/";
     public static string ExcelDataPath = Application.dataPath + "/Resources/Excel"; //源Excel文件夹,xlsx格式
     static string CsClassPath = Application.dataPath + "/Scripts/GamePlay/DataClass"; //生成的c#脚本文件夹
@@ -226,7 +228,63 @@ public static class ExcelConverter {
                         names = curRowData;
                     } //解析：第二行类变量类型
                     else if (r == 1) {
-                        types = curRowData;
+                        string[] rawTypes = new string[curRowData.Length];
+                        for (int i = 0; i < curRowData.Length; i++) {
+                            rawTypes[i] = curRowData[i].ToLower();
+                        }
+
+                        // 将小写类型转为对应的 .NET 类型
+                        Type[] _types = new Type[curRowData.Length];
+                        for (int i = 0; i < rawTypes.Length; i++) {
+                            // 判断是否为数组类型
+                            bool isArray = rawTypes[i].EndsWith("[]");
+
+                            // 判断是否为列表类型
+                            bool isList = rawTypes[i].StartsWith("list<") && rawTypes[i].EndsWith(">");
+
+                            Debug.Log($"i: {i}, isList: {isList}, isArray: {isArray}, rawTypes[i]: {rawTypes[i]}");
+
+                            string typeName = "";
+                            /*string typeName = isArray || isList
+                                ? rawTypes[i].Substring(isList ? 5 : 0, rawTypes[i].Length - (isArray ? 2 : (isList ? 1 : 0)))
+                                : rawTypes[i];*/
+                            if (isArray || isList) {
+                                if (isArray) {
+                                    typeName = rawTypes[i].Substring(0, rawTypes[i].Length - 2);
+                                }
+                                else {
+                                    typeName = rawTypes[i].Substring(5, rawTypes[i].Length - 6);
+                                }
+                            }
+                            else {
+                                typeName = rawTypes[i];
+                            }
+
+                            Debug.Log($"rawTypes[i]: {rawTypes[i]}, isList: {isList}, typeName: {typeName}");
+                            Debug.Log($"i: {i}");
+                            switch (typeName) {
+                                case "int":
+                                    _types[i] = isArray ? typeof(int[]) : (isList ? GetListType<int>() : typeof(int));
+                                    break;
+                                case "string":
+                                    _types[i] = isArray ? typeof(string[]) : (isList ? GetListType<string>() : typeof(string));
+                                    break;
+                                case "float":
+                                    _types[i] = isArray ? typeof(float[]) : (isList ? GetListType<float>() : typeof(float));
+                                    break;
+                                case "bool":
+                                    _types[i] = isArray ? typeof(bool[]) : (isList ? GetListType<bool>() : typeof(bool));
+                                    break;
+                                // 可以根据需要添加其他类型的处理
+                                default:
+                                    Debug.LogWarning($"未知的类型：{rawTypes[i]}，默认为 object 类型。");
+                                    _types[i] = isArray ? typeof(object[]) : (isList ? GetListType<object>() : typeof(object));
+                                    break;
+                            }
+                        }
+
+                        string[] typeNames = _types.Select(GetFriendlyTypeName).ToArray();
+                        types = typeNames;
                     } //解析：第三行类变量描述
                     else if (r == 2) {
                         descs = curRowData;
@@ -238,6 +296,7 @@ public static class ExcelConverter {
             }
             catch (System.Exception exc) {
                 Debug.LogError("请关闭Excel:" + exc.Message);
+                Debug.LogError("堆栈信息：" + exc.StackTrace);
                 return;
             }
 
@@ -252,6 +311,35 @@ public static class ExcelConverter {
         }
 
         AssetDatabase.Refresh();
+    }
+
+    static Type GetListType<T>() {
+        return typeof(List<T>);
+    }
+
+    private static string GetFriendlyTypeName(Type type) {
+        // 判断是否为 float 类型
+        if (type == typeof(float) || type == typeof(Single)) {
+            return "float";
+        }
+
+        if (type == typeof(Int32)) {
+            return "int";
+        }
+
+        if (!type.IsGenericType) {
+            return type.Name;
+        }
+        string typeName = type.Name;
+        int backtickIndex = typeName.IndexOf('`');
+        if (backtickIndex > 0) {
+            typeName = typeName.Substring(0, backtickIndex);
+        }
+
+        Type[] genericArguments = type.GetGenericArguments();
+        string genericArgumentsString = string.Join(", ", genericArguments.Select(GetFriendlyTypeName));
+
+        return $"{typeName}<{genericArgumentsString}>";
     }
 
     static void Cs2DataCs() {
@@ -280,6 +368,22 @@ public static class ExcelConverter {
         }
 
         AssetDatabase.Refresh();
+    }
+
+    static string MapTypeToName(Type type) {
+        // 判断是否为 float 类型
+        if (type == typeof(float) || type == typeof(Single)) {
+            return "float";
+        }
+        // 添加其他类型的映射
+        // else if (type == typeof(int) || type == typeof(Int32))
+        // {
+        //     return "int";
+        // }
+        // 其他类型的映射...
+
+        // 如果没有匹配到特定类型，返回类型的默认名称
+        return type.Name;
     }
 
     static void WriteCsByXr(string className, string[] names, string[] types, string[] descs) {
@@ -353,8 +457,7 @@ public static class ExcelConverter {
             stringBuilder.AppendLine("        protected override void LoadBytesInfo()");
             stringBuilder.AppendLine("        {");
             // stringBuilder.AppendLine("            Utils.LoadXMLByBundleByThreadAsync(\"" + className + ".xml\", loadData, CustPackageName.DataTable, CustPackageName.PlatformLobby);");
-
-            //临时 没有绑定ab包的情况下
+            
             stringBuilder.AppendLine("           string xmlPath = Application.dataPath + \"" + xmlfilepath + className + ".xml\";");
             stringBuilder.AppendLine("            XmlDocument xmlDoc = new XmlDocument();");
             stringBuilder.AppendLine("           xmlDoc.Load(xmlPath);");
@@ -398,6 +501,16 @@ public static class ExcelConverter {
                 else if (type == "bool") {
                     stringBuilder.AppendLine("                 data." + names[i] + "= bool.Parse(reader.GetAttribute(\"" + names[i] + "\"));");
                 }
+                else if (type.EndsWith("[]")) {
+                    // 处理数组类型
+                    string elementType = type.Substring(0, type.Length - 2); // 移除 "[]" 获取元素类型
+                    stringBuilder.AppendLine($"                 data.{names[i]}= reader.GetAttribute(\"{names[i]}\").Split(',').Select(x => {ParseValue(elementType, "x")}).ToArray();");
+                }
+                else if (type.StartsWith("list<") && type.EndsWith(">")) {
+                    // 处理列表类型
+                    string elementType = type.Substring(5, type.Length - 6); // 移除 "list<" 和 ">"
+                    stringBuilder.AppendLine($"                 data.{names[i]}= reader.GetAttribute(\"{names[i]}\").Split(',').Select(x => {ParseValue(elementType, "x")}).ToList();");
+                }
             }
 
             stringBuilder.AppendLine("                 lock (datas)");
@@ -432,7 +545,25 @@ public static class ExcelConverter {
             throw;
         }
     }
-
+    private static string ParseValue(string elementType, string value)
+    {
+        switch (elementType.ToLower())
+        {
+            case "int":
+                return $"int.Parse({value})";
+            case "long":
+                return $"long.Parse({value})";
+            case "float":
+                return $"float.Parse({value})";
+            case "string":
+                return $"{value}";
+            case "bool":
+                return $"bool.Parse({value})";
+            // 添加其他类型的处理
+            default:
+                return $"({elementType})({value})"; // 默认情况，尝试直接转换
+        }
+    }
     static void WriteCsByXrOperation(string className) {
         try {
             string dataname = className + "data";
