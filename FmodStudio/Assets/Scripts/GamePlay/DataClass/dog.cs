@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml.Serialization;
 using System.Xml;
@@ -8,7 +9,6 @@ using UnityEngine;
 
 namespace ThGold.Table
 {
-    [Serializable]
     public class dog : DefaultDataBase
     {
         private static DefaultDataBase _inst;
@@ -33,7 +33,7 @@ namespace ThGold.Table
         /// 狗的名称
         /// </summary>
         [XmlAttribute("Name")]
-        public String Name;
+        public string Name;
 
         /// <summary>
         /// 狗的年龄
@@ -90,6 +90,9 @@ namespace ThGold.Table
                      continue;
                  dog data = new dog();
                  data.ID= int.Parse(reader.GetAttribute("ID"));
+                 data.Name= reader.GetAttribute("Name").ToString();
+                 if(data.Name == "0")
+                     data.Name = string.Empty;
                  data.age= int.Parse(reader.GetAttribute("age"));
                  data.level= int.Parse(reader.GetAttribute("level"));
                  data.attack= int.Parse(reader.GetAttribute("attack"));
