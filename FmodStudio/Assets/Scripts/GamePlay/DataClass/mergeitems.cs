@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml.Serialization;
 using System.Xml;
@@ -8,7 +9,6 @@ using UnityEngine;
 
 namespace ThGold.Table
 {
-    [Serializable]
     public class mergeitems : DefaultDataBase
     {
         private static DefaultDataBase _inst;
@@ -53,6 +53,23 @@ namespace ThGold.Table
         [XmlAttribute("ItemList")]
         public List<int> ItemList;
 
+        /// <summary>
+        /// 列表2
+        /// </summary>
+        [XmlAttribute("TestList1")]
+        public List<float> TestList1;
+
+        /// <summary>
+        /// 列表3
+        /// </summary>
+        [XmlAttribute("TestList3")]
+        public List<string> TestList3;
+
+        /// <summary>
+        /// 数组1
+        /// </summary>
+        [XmlAttribute("TestArray1")]
+        public int[] TestArray1;
         protected override void LoadBytesInfo()
         {
            string xmlPath = Application.dataPath + "/Resources/XmlData/mergeitems.xml";
@@ -81,6 +98,10 @@ namespace ThGold.Table
                  data.ResultID= int.Parse(reader.GetAttribute("ResultID"));
                  data.ItemID1= int.Parse(reader.GetAttribute("ItemID1"));
                  data.ItemID2= int.Parse(reader.GetAttribute("ItemID2"));
+                 data.ItemList= reader.GetAttribute("ItemList").Split(',').Select(x => int.Parse(x)).ToList();
+                 data.TestList1= reader.GetAttribute("TestList1").Split(',').Select(x => float.Parse(x)).ToList();
+                 data.TestList3= reader.GetAttribute("TestList3").Split(',').Select(x => x).ToList();
+                 data.TestArray1= reader.GetAttribute("TestArray1").Split(',').Select(x => int.Parse(x)).ToArray();
                  lock (datas)
                  {
                      datas.Add(data);

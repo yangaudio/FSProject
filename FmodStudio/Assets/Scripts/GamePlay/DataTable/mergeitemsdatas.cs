@@ -10,7 +10,6 @@ using EventHandler = ThGold.Event.EventHandler;
 
 namespace ThGold.Table
 {
-    [Serializable]
 public class mergeitemsdata : LoadDataBase
 {
     public Dictionary<int, mergeitems> Datas;

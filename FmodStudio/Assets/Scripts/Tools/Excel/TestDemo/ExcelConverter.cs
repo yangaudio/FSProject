@@ -260,8 +260,8 @@ public static class ExcelConverter {
                                 typeName = rawTypes[i];
                             }
 
-                            Debug.Log($"rawTypes[i]: {rawTypes[i]}, isList: {isList}, typeName: {typeName}");
-                            Debug.Log($"i: {i}");
+                            /*Debug.Log($"rawTypes[i]: {rawTypes[i]}, isList: {isList}, typeName: {typeName}");
+                            Debug.Log($"i: {i}");*/
                             switch (typeName) {
                                 case "int":
                                     _types[i] = isArray ? typeof(int[]) : (isList ? GetListType<int>() : typeof(int));
@@ -281,6 +281,8 @@ public static class ExcelConverter {
                                     _types[i] = isArray ? typeof(object[]) : (isList ? GetListType<object>() : typeof(object));
                                     break;
                             }
+
+                            Debug.Log($"curType={_types[i]}");
                         }
 
                         string[] typeNames = _types.Select(GetFriendlyTypeName).ToArray();
@@ -323,13 +325,18 @@ public static class ExcelConverter {
             return "float";
         }
 
+        if (type == typeof(String) || type == typeof(string)) {
+            return "string";
+        }
+
         if (type == typeof(Int32)) {
             return "int";
         }
 
-        if (!type.IsGenericType) {
-            return type.Name;
+        if (type == typeof(Int32[])) {
+            return "int[]";
         }
+
         string typeName = type.Name;
         int backtickIndex = typeName.IndexOf('`');
         if (backtickIndex > 0) {
@@ -392,6 +399,7 @@ public static class ExcelConverter {
             stringBuilder.AppendLine("using System;");
             stringBuilder.AppendLine("using System.Collections.Generic;");
             stringBuilder.AppendLine("using System.IO;");
+            stringBuilder.AppendLine("using System.Linq;");
             stringBuilder.AppendLine("using System.Runtime.Serialization.Formatters.Binary;");
             stringBuilder.AppendLine("using System.Xml.Serialization;");
             stringBuilder.AppendLine("using System.Xml;");
@@ -399,7 +407,7 @@ public static class ExcelConverter {
             stringBuilder.Append("\n");
             stringBuilder.AppendLine("namespace ThGold.Table");
             stringBuilder.AppendLine("{");
-            stringBuilder.AppendLine("    [Serializable]");
+            //stringBuilder.AppendLine("    [Serializable]");
             stringBuilder.AppendLine("    public class " + className + " : DefaultDataBase");
             stringBuilder.AppendLine("    {");
             stringBuilder.AppendLine("        private static DefaultDataBase _inst;");
@@ -429,6 +437,8 @@ public static class ExcelConverter {
                     //用_name字段去反序列化，name取_name.item的值,直接返回list<type>。
                     //因为xml每行可能有多个数组字段，这样就多了一层变量item，所以访问的时候需要.item才能取到list<type>
                     //因此用额外的一个变量直接返回List<type>。
+                    stringBuilder.AppendLine("        public " + type + " " + names[i] + ";");
+                    break;
                     type = type.Replace("[]", "");
                     stringBuilder.AppendLine("        public List<" + type + "> " + names[i] + "");
                     stringBuilder.AppendLine("        {");
@@ -457,7 +467,7 @@ public static class ExcelConverter {
             stringBuilder.AppendLine("        protected override void LoadBytesInfo()");
             stringBuilder.AppendLine("        {");
             // stringBuilder.AppendLine("            Utils.LoadXMLByBundleByThreadAsync(\"" + className + ".xml\", loadData, CustPackageName.DataTable, CustPackageName.PlatformLobby);");
-            
+
             stringBuilder.AppendLine("           string xmlPath = Application.dataPath + \"" + xmlfilepath + className + ".xml\";");
             stringBuilder.AppendLine("            XmlDocument xmlDoc = new XmlDocument();");
             stringBuilder.AppendLine("           xmlDoc.Load(xmlPath);");
@@ -504,12 +514,14 @@ public static class ExcelConverter {
                 else if (type.EndsWith("[]")) {
                     // 处理数组类型
                     string elementType = type.Substring(0, type.Length - 2); // 移除 "[]" 获取元素类型
-                    stringBuilder.AppendLine($"                 data.{names[i]}= reader.GetAttribute(\"{names[i]}\").Split(',').Select(x => {ParseValue(elementType, "x")}).ToArray();");
+                    stringBuilder.AppendLine(
+                        $"                 data.{names[i]}= reader.GetAttribute(\"{names[i]}\").Split(',').Select(x => {ParseValue(elementType, "x")}).ToArray();");
                 }
-                else if (type.StartsWith("list<") && type.EndsWith(">")) {
+                else if (type.StartsWith("list<") && type.EndsWith(">")||type.StartsWith("List<") && type.EndsWith(">")) {
                     // 处理列表类型
                     string elementType = type.Substring(5, type.Length - 6); // 移除 "list<" 和 ">"
-                    stringBuilder.AppendLine($"                 data.{names[i]}= reader.GetAttribute(\"{names[i]}\").Split(',').Select(x => {ParseValue(elementType, "x")}).ToList();");
+                    stringBuilder.AppendLine(
+                        $"                 data.{names[i]}= reader.GetAttribute(\"{names[i]}\").Split(',').Select(x => {ParseValue(elementType, "x")}).ToList();");
                 }
             }
 
@@ -545,10 +557,9 @@ public static class ExcelConverter {
             throw;
         }
     }
-    private static string ParseValue(string elementType, string value)
-    {
-        switch (elementType.ToLower())
-        {
+
+    private static string ParseValue(string elementType, string value) {
+        switch (elementType.ToLower()) {
             case "int":
                 return $"int.Parse({value})";
             case "long":
@@ -564,6 +575,7 @@ public static class ExcelConverter {
                 return $"({elementType})({value})"; // 默认情况，尝试直接转换
         }
     }
+
     static void WriteCsByXrOperation(string className) {
         try {
             string dataname = className + "data";
@@ -581,7 +593,7 @@ public static class ExcelConverter {
             stringBuilder.Append("\n");
             stringBuilder.AppendLine("namespace ThGold.Table");
             stringBuilder.AppendLine("{");
-            stringBuilder.AppendLine("    [Serializable]");
+            //stringBuilder.AppendLine("    [Serializable]");
             stringBuilder.AppendLine("public class " + dataname + " : LoadDataBase");
             stringBuilder.AppendLine("{");
             stringBuilder.AppendLine("    public Dictionary<int, " + className + "> Datas;");
@@ -673,7 +685,7 @@ public static class ExcelConverter {
             stringBuilder.Append("\n");
             stringBuilder.AppendLine("namespace ThGold.Table");
             stringBuilder.AppendLine("{");
-            stringBuilder.AppendLine("    [Serializable]");
+            //stringBuilder.AppendLine("    [Serializable]");
             stringBuilder.AppendLine("    public class " + className + " : DefaultDataBase");
             stringBuilder.AppendLine("    {");
             stringBuilder.AppendLine("        private static DefaultDataBase _inst;");
@@ -811,6 +823,13 @@ public static class ExcelConverter {
                 //填充属性节点
                 for (int c = 0; c < datas.Length; c++) {
                     string type = types[c];
+                    if (true) {
+                        string name = names[c];
+                        string value = datas[c];
+                        value = ValueReplaceLinefeed(value);
+                        stringBuilder.Append(name + "=\"" + value + "\"" + (c == datas.Length - 1 ? "" : " "));
+                    }
+                    continue;
                     if (!type.Contains("[]")) {
                         string name = names[c];
                         string value = datas[c];
@@ -821,9 +840,16 @@ public static class ExcelConverter {
 
                 stringBuilder.Append(">\n");
                 //填充子元素节点(数组类型字段)
-                for (int c = 0; c < datas.Length; c++) {
+                /*for (int c = 0; c < datas.Length; c++) {
                     string type = types[c];
                     if (type.Contains("[]")) {
+                        string name = names[c];
+                        string value = datas[c];
+                        value = ValueReplaceLinefeed(value);
+                        stringBuilder.Append(name + "=\"" + value + "\"" + (c == datas.Length - 1 ? "" : " "));
+
+                        //old
+                        /*
                         string name = names[c];
                         string value = datas[c];
                         string[] values = value.Split(ArrayTypeSplitChar);
@@ -832,9 +858,9 @@ public static class ExcelConverter {
                             stringBuilder.AppendLine("\t\t\t<item>" + ValueReplaceLinefeed(values[v]) + "</item>");
                         }
 
-                        stringBuilder.AppendLine("\t\t</" + name + ">");
+                        stringBuilder.AppendLine("\t\t</" + name + ">");#1#
                     }
-                }
+                }*/
 
                 stringBuilder.AppendLine("\t</" + className + ">");
             }

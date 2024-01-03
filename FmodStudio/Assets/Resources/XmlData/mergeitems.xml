@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <allmergeitems>
-	<mergeitems ID="1001" ResultID="101" ItemID1="1" ItemID2="2" ItemList="1,2">
+	<mergeitems ID="1001" ResultID="101" ItemID1="1" ItemID2="2" ItemList="1,2" TestList1="1.35,1,62" TestList3="“你好”,“吃了吗”" TestArray1="1,2">
 	</mergeitems>
-	<mergeitems ID="1002" ResultID="102" ItemID1="1" ItemID2="3" ItemList="1,3">
+	<mergeitems ID="1002" ResultID="102" ItemID1="1" ItemID2="3" ItemList="1,3" TestList1="1.56,5,67,8889,6" TestList3="“你好2”,“吃了”" TestArray1="3,4">
 	</mergeitems>
 </allmergeitems>
