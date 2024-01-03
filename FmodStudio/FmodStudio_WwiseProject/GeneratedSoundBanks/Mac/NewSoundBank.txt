@@ -1,0 +1,3 @@
+In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	960723044	y2404	F:\Unity\UnityProject\FSProject\FmodStudio\FmodStudio_WwiseProject\.cache\Mac\SFX\y2404_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\y2404		709728
+

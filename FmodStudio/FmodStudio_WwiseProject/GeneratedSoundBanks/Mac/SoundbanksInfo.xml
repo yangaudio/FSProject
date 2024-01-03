@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SoundBanksInfo Platform="Mac" BasePlatform="Mac" SchemaVersion="16" SoundBankVersion="145">
+	<RootPaths>
+		<ProjectRoot>../..</ProjectRoot>
+		<SourceFilesRoot>../../.cache/Mac</SourceFilesRoot>
+		<SoundBanksRoot>.</SoundBanksRoot>
+		<ExternalSourcesInputFile></ExternalSourcesInputFile>
+		<ExternalSourcesOutputRoot>.</ExternalSourcesOutputRoot>
+	</RootPaths>
+	<DialogueEvents/>
+	<SoundBanks>
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{F56A610C-C7C4-F874-B68B-7ADDF94EBB7A}">
+			<ShortName>Init</ShortName>
+			<Path>Init.bnk</Path>
+			<Plugins>
+				<AudioDevices>
+					<Plugin Id="2317455096" Name="No_Output" LibName="No Output" LibId="11862023"/>
+					<Plugin Id="3859886410" Name="System" LibName="System" LibId="11403271"/>
+				</AudioDevices>
+			</Plugins>
+			<Busses>
+				<Bus Id="3803692087" Name="Master Audio Bus"/>
+			</Busses>
+		</SoundBank>
+		<SoundBank Id="2332548400" Type="User" Language="SFX" Hash="{5B0BD4A0-BE3C-BF80-AD05-B9549089ECB5}">
+			<ShortName>NewSoundBank</ShortName>
+			<Path>NewSoundBank.bnk</Path>
+			<Media>
+				<File Id="960723044" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>y2404.wav</ShortName>
+					<CachePath>SFX/y2404_10C4C929.wem</CachePath>
+				</File>
+			</Media>
+		</SoundBank>
+	</SoundBanks>
+	<FileHash>{366FC092-04CB-BB51-6A8F-4E29CDB57A44}</FileHash>
+</SoundBanksInfo>

@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WwiseDocument Type="WorkUnit" ID="{4F13DF1D-1472-4040-B93D-4F3BCEA62E85}" SchemaVersion="110">
 	<AudioObjects>
-		<WorkUnit Name="Default Work Unit" ID="{4F13DF1D-1472-4040-B93D-4F3BCEA62E85}" PersistMode="Standalone"/>
+		<WorkUnit Name="Default Work Unit" ID="{4F13DF1D-1472-4040-B93D-4F3BCEA62E85}" PersistMode="Standalone">
+			<ChildrenList>
+				<Sound Name="y2404" ID="{14EDA701-750F-4913-8F39-E88F6AEB2E68}" ShortID="176938887">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{1DB8FC21-4E8A-4057-BA57-2E948089F350}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{FD15E51A-391A-43FA-94A4-5DA10A907314}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="y2404" ID="{186DA826-F464-4C67-A5D8-230D6B87555C}">
+							<Language>SFX</Language>
+							<AudioFile>y2404.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="960723044"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="y2404" ID="{186DA826-F464-4C67-A5D8-230D6B87555C}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+			</ChildrenList>
+		</WorkUnit>
 	</AudioObjects>
 </WwiseDocument>

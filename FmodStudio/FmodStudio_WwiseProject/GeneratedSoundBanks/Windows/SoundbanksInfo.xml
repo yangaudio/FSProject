@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="16" SoundBankVersion="145">
+	<RootPaths>
+		<ProjectRoot>../..</ProjectRoot>
+		<SourceFilesRoot>../../.cache/Windows</SourceFilesRoot>
+		<SoundBanksRoot>.</SoundBanksRoot>
+		<ExternalSourcesInputFile></ExternalSourcesInputFile>
+		<ExternalSourcesOutputRoot>.</ExternalSourcesOutputRoot>
+	</RootPaths>
+	<DialogueEvents/>
+	<SoundBanks>
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{986487A9-2683-E47A-8688-3D0FE6FDB954}">
+			<ShortName>Init</ShortName>
+			<Path>Init.bnk</Path>
+			<Plugins>
+				<AudioDevices>
+					<Plugin Id="2317455096" Name="No_Output" LibName="No Output" LibId="11862023"/>
+					<Plugin Id="3859886410" Name="System" LibName="System" LibId="11403271"/>
+				</AudioDevices>
+			</Plugins>
+			<Busses>
+				<Bus Id="3803692087" Name="Master Audio Bus"/>
+			</Busses>
+		</SoundBank>
+		<SoundBank Id="2332548400" Type="User" Language="SFX" Hash="{5B0BD4A0-BE3C-BF80-AD05-B9549089ECB5}">
+			<ShortName>NewSoundBank</ShortName>
+			<Path>NewSoundBank.bnk</Path>
+			<Media>
+				<File Id="960723044" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>y2404.wav</ShortName>
+					<CachePath>SFX/y2404_10C4C929.wem</CachePath>
+				</File>
+			</Media>
+		</SoundBank>
+	</SoundBanks>
+	<FileHash>{9283BDCC-673D-F15A-3CA2-C4CC51390758}</FileHash>
+</SoundBanksInfo>
