@@ -73,7 +73,6 @@ public static class WwiseEditor {
         string className = "WwiseEventName";
         try {
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.Append("\n");
             stringBuilder.AppendLine("namespace ThGold.Wwise {");
             //stringBuilder.AppendLine("    [Serializable]");
             stringBuilder.AppendLine("    public static class " + className + " {");
@@ -87,7 +86,7 @@ public static class WwiseEditor {
             stringBuilder.Append("\n");
             stringBuilder.AppendLine("    }");
             stringBuilder.AppendLine("}");
-
+ 
             string csPath = CsClassPath + "/" + className + ".cs";
             if (File.Exists(csPath)) {
                 File.Delete(csPath);
