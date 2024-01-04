@@ -36,39 +36,9 @@ namespace ThGold.Wwise
         {
             
         }
-        public void ChangeScoreRTPC(float num)
-        {
-            SetRTPC("score", num);
-            Debug.Log("RTPC:"+num);
-        }
-
-
-        public bool curdie;
-        [Button("isDie")]
-
         private void Start()
         {
             InitBGM();
-           // InitRTPC();
-        }
-        public void UpdatePlayerState(bool isDie)
-        {
-
-            if (isDie)
-            {
-                if (!curdie)
-                {
-                    WwiseController.Instance.ChangeGame_state("pause");
-                }
-                curdie = true;
-
-                
-            }
-            else
-            {
-                curdie = false;
-                WwiseController.Instance.ChangeGame_state("continue");
-            }
         }
         public void ChangeLevelState(string StateName)
         {
@@ -101,13 +71,13 @@ namespace ThGold.Wwise
             EffectObject.transform.parent = this.gameObject.transform;
             ChangeBGMListener(BGMObject);
             ChangeSoundListener(EffectObject);
-            ChangeLevelState("normal");
-            UpdatePlayerState(false);
-            PlayBGM("BGM");
+            //ChangeLevelState("normal");
+            //UpdatePlayerState(false);
+            //PlayBGM("BGM");
         }
         public void SetRTPC(string RTPCName,float RTPCValue)
         {
-            AkSoundEngine.SetRTPCValue(RTPCName, RTPCValue);
+            _WwiseManager.SetRTPC(RTPCName, RTPCValue);
         }
         public void ChangeBGMListener(GameObject gameObject)
         {
@@ -126,20 +96,25 @@ namespace ThGold.Wwise
         {
             _WwiseManager.PlaySound(Name,EffectObject);
         } 
+        /// <summary>
+        /// 播放Event
+        /// </summary>
+        /// <param name="EventName"></param>
+        /// <param name="gameObject"></param>
         public void PlayEvent(string EventName, GameObject gameObject)
         {
             _WwiseManager.PlaySound(EventName, gameObject);
         }
-
+        /// <summary>
+        /// 停止Event
+        /// </summary>
+        /// <param name="EventName"></param>
+        /// <param name="gameObject"></param>
         public void StopSound(string EventName, GameObject gameObject)
         {
             _WwiseManager.StopSound(EventName, gameObject);
         }
-
-        public void StopSound(string EventName)
-        {
-            _WwiseManager.StopSound(EventName);
-        }
+        
         public void SwtichState(string str1, string str2)
         {
             _WwiseManager.SwtichState(str1,str2);
@@ -158,7 +133,17 @@ namespace ThGold.Wwise
         {
             _WwiseManager.isPlay = true;
         }
-        public void SetSoundVolume(string StrRPTC)
+
+        [Button("Play")]
+        public void Test() 
+        {
+            PlayEvent(WwiseEventName.Play_Test,BGMObject);
+        }
+        /// <summary>
+        /// 这个计算方法暂时不知道能不能用
+        /// </summary>
+        /// <param name="StrRPTC"></param>
+        private void SetSoundVolume(string StrRPTC)
         {
             AkSoundEngine.SetRTPCValue(StrRPTC, CalculationSoundVolume(VolumeType.Sound));
         }

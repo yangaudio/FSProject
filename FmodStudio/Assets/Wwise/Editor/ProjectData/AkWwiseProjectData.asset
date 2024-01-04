@@ -66,8 +66,22 @@ MonoBehaviour:
     ParentPath: SoundBanks\Default Work Unit
     guid: 5b3df5bca22e054eb975b19a75d856ad
     GuidInternal: 
-    m_lastTime: -8584973453331674805
-    List: []
+    m_lastTime: -8584972765891673204
+    List:
+    - name: NewSoundBank
+      guid: 23f5252a253b4b439e3574d37dc0c4ba
+      id: 2332548400
+      PathAndIcons:
+      - ElementName: SoundBanks
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 5b3df5bca22e054eb975b19a75d856ad
+      - ElementName: NewSoundBank
+        ObjectType: 7
+        guid: 23f5252a253b4b439e3574d37dc0c4ba
+      Path: SoundBanks\Default Work Unit\NewSoundBank
   EventWwu:
   - PhysicalPath: Events\Default Work Unit.wwu
     PathAndIcons:
@@ -80,8 +94,25 @@ MonoBehaviour:
     ParentPath: Events\Default Work Unit
     guid: 13d7e43c35d2ad4ca97d1e1fb488b3ca
     GuidInternal: 
-    m_lastTime: -8584973453331474757
-    List: []
+    m_lastTime: -8584972765891838500
+    List:
+    - name: Play_Test
+      guid: 6f80cc65437a74488ee3f390007aa557
+      id: 3187507146
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 13d7e43c35d2ad4ca97d1e1fb488b3ca
+      - ElementName: Play_Test
+        ObjectType: 3
+        guid: 6f80cc65437a74488ee3f390007aa557
+      Path: Events\Default Work Unit\Play_Test
+      maxAttenuation: 0
+      maxDuration: 4.022857
+      minDuration: 4.022857
   RtpcWwu:
   - PhysicalPath: Game Parameters\Default Work Unit.wwu
     PathAndIcons:
@@ -138,9 +169,9 @@ MonoBehaviour:
     GuidInternal: 
     m_lastTime: -8584973453331454754
     List: []
-  ExpandedFileSystemItemIds: 
-  ExpandedWaapiItemIds: 
+  ExpandedFileSystemItemIds: 02000000030000000400000005000000
+  ExpandedWaapiItemIds: 0200000003000000
   AutoSyncSelection: 0
   autoPopulateEnabled: 1
-  currentDataSource: 0
+  currentDataSource: 1
   CurrentPluginConfig: 

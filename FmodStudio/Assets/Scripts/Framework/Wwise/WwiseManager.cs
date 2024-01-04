@@ -87,10 +87,6 @@ namespace ThGold.Wwise
                 AkWwiseInitializationSettings settings = settingObj as AkWwiseInitializationSettings;
                 akInitializer.InitializationSettings = settings;
                 global.SetActive(true);
-                
-                
-                
-
             }
             else
             {
@@ -286,12 +282,6 @@ namespace ThGold.Wwise
         {
             AkSoundEngine.SetState(stateName, state);
         }
-
-        public void StopSound(string EventName)
-        {
-            Stop(EventName, akGameobject);
-        }
-
         public void StopSound(string EventName, GameObject gameObject)
         {
             Stop(EventName, gameObject);
@@ -326,7 +316,7 @@ namespace ThGold.Wwise
         /// </summary>
         /// <param name="RTPCName"></param>
         /// <param name="value"></param>
-        private void SetRTPC(string RTPCName, float value)
+        public void SetRTPC(string RTPCName, float value)
         {
             AkSoundEngine.SetRTPCValue(RTPCName, value);
         }
