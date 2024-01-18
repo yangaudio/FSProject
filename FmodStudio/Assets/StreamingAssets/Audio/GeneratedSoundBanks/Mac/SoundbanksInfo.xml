@@ -9,7 +9,7 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{F56A610C-C7C4-F874-B68B-7ADDF94EBB7A}">
+		<SoundBank Id="1355168291" Type="User" Language="SFX" Hash="{77EF9CC0-566C-293E-319E-A5DD338AB19F}">
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 			<Plugins>
@@ -21,24 +21,30 @@
 			<Busses>
 				<Bus Id="3803692087" Name="Master Audio Bus"/>
 			</Busses>
+			<GameParameters>
+				<GameParameter Id="1240670792" Name="distance"/>
+			</GameParameters>
 		</SoundBank>
-		<SoundBank Id="2332548400" Type="User" Language="SFX" Hash="{F7D9EC5A-82A2-985D-2A90-7983CF4E6C6C}">
+		<SoundBank Id="2332548400" Type="User" Language="SFX" Hash="{C74F5D0F-7EE4-D715-49BD-74F6C1E734BF}">
 			<ShortName>NewSoundBank</ShortName>
 			<Path>NewSoundBank.bnk</Path>
 			<Media>
-				<File Id="960723044" Language="SFX" Streaming="false" Location="Memory">
-					<ShortName>y2404.wav</ShortName>
-					<CachePath>SFX/y2404_10C4C929.wem</CachePath>
+				<File Id="746686351" Language="SFX" Streaming="false" Location="Memory">
+					<ShortName>cleanup_bgm_1.wav</ShortName>
+					<CachePath>SFX/cleanup_bgm_1_D79FB2B7.wem</CachePath>
 				</File>
 			</Media>
 			<Events>
-				<Event Id="3187507146" Name="Play_Test" DurationType="OneShot" DurationMin="4.022857" DurationMax="4.022857">
+				<Event Id="2997278901" Name="Yang_test" DurationType="OneShot" DurationMin="81.37499" DurationMax="81.37499">
 					<MediaRefs>
-						<MediaRef Id="960723044"/>
+						<MediaRef Id="746686351"/>
 					</MediaRefs>
 				</Event>
 			</Events>
+			<GameParameters>
+				<GameParameter Id="1240670792" Name="distance"/>
+			</GameParameters>
 		</SoundBank>
 	</SoundBanks>
-	<FileHash>{A9306B87-8307-ADB9-39E1-C584FFEF492C}</FileHash>
+	<FileHash>{3EB2FB73-983D-3F25-6458-76749880CB23}</FileHash>
 </SoundBanksInfo>
