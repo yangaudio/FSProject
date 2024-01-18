@@ -1,6 +1,9 @@
 Event	ID	Name			Wwise Object Path	Notes
-	3187507146	Play_Test			\Default Work Unit\Play_Test	
+	2997278901	Yang_test			\Default Work Unit\Yang_test	
+
+Game Parameter	ID	Name			Wwise Object Path	Notes
+	1240670792	distance			\Default Work Unit\distance	
 
 In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
-	960723044	y2404	F:\Unity\UnityProject\FSProject\FmodStudio\FmodStudio_WwiseProject\.cache\Windows\SFX\y2404_10C4C929.wem		\Actor-Mixer Hierarchy\Default Work Unit\y2404		709728
+	746686351	cleanup_bgm_1	Y:\github\FSProject\FmodStudio\FmodStudio_WwiseProject\.cache\Windows\SFX\cleanup_bgm_1_D79FB2B7.wem		\Interactive Music Hierarchy\Default Work Unit\cleanup_bgm_1\cleanup_bgm_1		14354644
 

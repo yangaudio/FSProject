@@ -5,8 +5,7 @@
 			<ChildrenList>
 				<SoundBank Name="NewSoundBank" ID="{2A25F523-3B25-434B-9E35-74D37DC0C4BA}">
 					<ObjectInclusionList>
-						<ObjectRef Name="Play_Test" ID="{65CC806F-7A43-4874-8EE3-F390007AA557}" WorkUnitID="{3CE4D713-D235-4CAD-A97D-1E1FB488B3CA}" Origin="Manual" Filter="7"/>
-						<ObjectRef Name="y2404" ID="{14EDA701-750F-4913-8F39-E88F6AEB2E68}" WorkUnitID="{4F13DF1D-1472-4040-B93D-4F3BCEA62E85}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Yang_test" ID="{D04A8DAB-C6F5-4BED-B1A8-4AD65515A173}" WorkUnitID="{3CE4D713-D235-4CAD-A97D-1E1FB488B3CA}" Origin="Manual" Filter="7"/>
 					</ObjectInclusionList>
 					<ObjectExclusionList/>
 					<GameSyncExclusionList/>

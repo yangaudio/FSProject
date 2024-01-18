@@ -3,12 +3,12 @@
 	<Events>
 		<WorkUnit Name="Default Work Unit" ID="{3CE4D713-D235-4CAD-A97D-1E1FB488B3CA}" PersistMode="Standalone">
 			<ChildrenList>
-				<Event Name="Play_Test" ID="{65CC806F-7A43-4874-8EE3-F390007AA557}">
+				<Event Name="Yang_test" ID="{D04A8DAB-C6F5-4BED-B1A8-4AD65515A173}">
 					<ChildrenList>
-						<Action Name="" ID="{F30C6805-29F0-4F6B-AAD7-9197DCAB9A20}" ShortID="649498035">
+						<Action Name="" ID="{E1BE2FED-7FF5-4941-B38B-BC98681A7B17}" ShortID="393970108">
 							<ReferenceList>
 								<Reference Name="Target">
-									<ObjectRef Name="y2404" ID="{14EDA701-750F-4913-8F39-E88F6AEB2E68}" WorkUnitID="{4F13DF1D-1472-4040-B93D-4F3BCEA62E85}"/>
+									<ObjectRef Name="cleanup_bgm_1" ID="{D7325E8A-4D44-4C47-951C-6EF9EE046AC7}" WorkUnitID="{72CA9DDB-26E0-419C-94FA-E477B2A2DF7A}"/>
 								</Reference>
 							</ReferenceList>
 						</Action>

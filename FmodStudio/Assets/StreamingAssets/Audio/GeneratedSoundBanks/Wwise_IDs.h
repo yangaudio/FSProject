@@ -13,8 +13,13 @@ namespace AK
 {
     namespace EVENTS
     {
-        static const AkUniqueID PLAY_TEST = 3187507146U;
+        static const AkUniqueID YANG_TEST = 2997278901U;
     } // namespace EVENTS
+
+    namespace GAME_PARAMETERS
+    {
+        static const AkUniqueID DISTANCE = 1240670792U;
+    } // namespace GAME_PARAMETERS
 
     namespace BANKS
     {
