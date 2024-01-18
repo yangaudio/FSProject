@@ -17,6 +17,8 @@ namespace ThGold.Feel
     {
         private FeedBackManager _feedBackManager;
         private Dictionary<string, MMFeedbacks> _feedbacksDic;
+
+
         #region Pools
         //需要什么Pools添加什么Pools
         #endregion
